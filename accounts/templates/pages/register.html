@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input.error {
+            border-color: red;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff3131;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="myForm" method="POST">{% csrf_token %}
+        <h1>Cadastrar</h1>
+        <input type="text"  id="username" name="username" placeholder="Nome de usuário">
+        <span id="usernameError" class="error"></span>
+        <input type="email" id="email" name="email" placeholder="Email">
+        <span id="emailError" class="error"></span>
+        <input type="password" id="password" name="password" placeholder="Senha">
+        <span id="passwordError" class="error"></span>
+        <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repita a senha">
+        <span id="repeatPasswordError" class="error"></span>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('myForm');
+
+        form.addEventListener('submit', function(event) {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const repeatPassword = document.getElementById('repeatPassword').value.trim();
+
+            const usernameError = document.getElementById('usernameError');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const repeatPasswordError = document.getElementById('repeatPasswordError');
+
+            usernameError.textContent = '';
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            repeatPasswordError.textContent = '';
+
+            if (username === '') {
+                usernameError.textContent = 'Por favor, insira um nome de usuário.';
+                document.getElementById('username').classList.add('error');
+                event.preventDefault();
+            } else {
+                document.getElementById('username').classList.remove('error');
+            }
+
+            if (email === '') {
+                emailError.textContent = 'Por favor, insira um email.';
+                document.getElementById('email').classList.add('error');
+                event.preventDefault();
+            } else {
+                document.getElementById('email').classList.remove('error');
+            }
+
+            if (password === '') {
+                passwordError.textContent = 'Por favor, insira uma senha.';
+                document.getElementById('password').classList.add('error');
+                event.preventDefault();
+            } else {
+                document.getElementById('password').classList.remove('error');
+            }
+
+            if (repeatPassword === '') {
+                repeatPasswordError.textContent = 'Por favor, repita a senha.';
+                document.getElementById('repeatPassword').classList.add('error');
+                event.preventDefault();
+            } else {
+                document.getElementById('repeatPassword').classList.remove('error');
+            }
+
+            if (password !== repeatPassword) {
+                repeatPasswordError.textContent = 'As senhas não coincidem.';
+                document.getElementById('repeatPassword').classList.add('error');
+                event.preventDefault();
+            } else {
+                document.getElementById('repeatPassword').classList.remove('error');
+            }
+        });
+    </script>
+</body>
+</html>
