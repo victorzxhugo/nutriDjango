@@ -10,10 +10,12 @@
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="{% static 'css/base.css' %} ">
     
+
     <!----===== Boxicons CSS ===== -->
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
     
-    <title>Dashboard Sidebar Menu</title> 
+    <title>Nutri App</title> 
    
 </head>
 <body>
@@ -50,16 +52,16 @@
                     </li>
                     {% endif %}
                     <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                            <span class="text nav-text">Revenue</span>
+                        <a href="/novo-paciente">
+                            <i class='bx bx-user-plus icon'></i>
+                            <span class="text nav-text">Novo paciente</span>
                         </a>
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Notifications</span>
+                        <a href="/pacientes">
+                            <i class='bx bxs-user-pin icon'></i>
+                            <span class="text nav-text">Pacientes</span>
                         </a>
                     </li>
 
@@ -113,12 +115,12 @@
     </nav>
 
     <section class="home">
-            {% block content %}
+        {% block content %}
         {% endblock %}
     </section>
 
     <script src="{% static 'js/base.js' %}"></script>
-    
+</body>
 
 </body>
 </html>
