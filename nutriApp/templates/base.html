@@ -37,21 +37,21 @@
         <div class="menu-bar">
             <div class="menu">
                 <ul class="menu-links">
-                    <li class="nav-link">
+                    <li class="nav-link-side">
                         <a href="/">
                             <i class='bx bx-home-alt icon' ></i>
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
                     {% if request.user.is_superuser %}
-                    <li class="nav-link">
+                    <li class="nav-link-side">
                         <a href="/novo-paciente">
                             <i class='bx bx-user-plus icon'></i>
                             <span class="text nav-text">Novo paciente</span>
                         </a>
                     </li>
                     
-                    <li class="nav-link">
+                    <li class="nav-link-side">
                         <a href="/pacientes">
                             <i class='bx bxs-user-pin icon'></i>
                             <span class="text nav-text">Pacientes</span>
@@ -59,21 +59,21 @@
                     </li>
                     {% endif %}
 
-                    <li class="nav-link">
+                    <li class="nav-link-side">
                         <a href="#">
                             <i class='bx bx-pie-chart-alt icon' ></i>
                             <span class="text nav-text">Analytics</span>
                         </a>
                     </li>
 
-                    <!-- <li class="nav-link">
+                    <!-- <li class="nav-link-side">
                         <a href="#">
                             <i class='bx bx-heart icon' ></i>
                             <span class="text nav-text">Likes</span>
                         </a>
                     </li> -->
 
-                    <!-- <li class="nav-link">
+                    <!-- <li class="nav-link-side">
                         <a href="#">
                             <i class='bx bx-wallet icon' ></i>
                             <span class="text nav-text">Wallets</span>

@@ -6,11 +6,11 @@ from django.http import HttpResponseNotAllowed
 from django.core.exceptions import ValidationError
 
 @login_required(redirect_field_name='login')
-
 def home(request):
     # User.objects.create_user(username='caio', email='caio@gmail.com', password='123123')
     return render(request, 'home.html')
 
+@login_required(redirect_field_name='login')
 def cadastrar_paciente(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -42,26 +42,26 @@ def cadastrar_paciente(request):
 
     return render(request, 'novo-paciente.html')
 
+@login_required(redirect_field_name='login')
 def pacientes(request):
     nutricionista = request.user
     pacientes = Paciente.objects.filter(nutricionista=nutricionista)
     return render(request, 'pacientes.html', {'pacientes': pacientes})
 
 
+@login_required(redirect_field_name='login')
 def editar_paciente(request, paciente_id):
     paciente = get_object_or_404(Paciente, pk=paciente_id)
     if request.method == 'POST':
         nome = request.POST.get('nome')
         email = request.POST.get('email')
         peso = request.POST.get('peso')
-        altura = request.POST.get('altura')
         data_nascimento = request.POST.get('data_nascimento')
         genero = request.POST.get('genero')
 
 
         paciente.user.save()
         paciente.peso = peso
-        paciente.altura = altura
         paciente.data_nascimento = data_nascimento
         paciente.genero = genero
         paciente.save()

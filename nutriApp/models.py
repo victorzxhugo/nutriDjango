@@ -13,17 +13,18 @@ class Paciente(models.Model):
     cep = models.CharField(max_length=9, verbose_name='CEP', blank=True, validators=[RegexValidator(regex=r'^\d{5}-\d{3}$')])
     celular = models.CharField(max_length=15, validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$')], verbose_name='Celular', blank=True)
 
+
     def __str__(self):
         return self.nome_completo
 
-class MedidaAntropometrica(models.Model):
+class Historico(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='medidas')
-    data_medicao = models.DateField(verbose_name='Data da Medição', blank=False)
     altura = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Altura (cm)', blank=False)
     peso = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Peso (kg)', blank=False)
     circunferencia_abdominal = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Circunferência Abdominal (cm)', blank=True, null=True)
     circunferencia_quadril = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Circunferência do Quadril (cm)', blank=True, null=True)
     imc = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='Índice de Massa Corporal (IMC)', blank=True, null=True)
+    data_medicao = models.DateField(verbose_name='Data da Medição', blank=False)
 
     def __str__(self):
         return f'Medida de {self.paciente.nome_completo} em {self.data_medicao}'
