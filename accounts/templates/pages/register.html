@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registrar</title>
+    <!-- Inclua o Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000000;
-            margin: 0;
-            padding: 0;
+            background-color: #ffffff; /* Fundo branco */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
-        form {
-            background-color: #fff;
+        .register-container {
+            max-width: 400px;
+            width: 100%;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: #ffffff; /* Fundo branco para o formulário */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        h1 {
-            text-align: center;
+        .register-container img {
+            max-width: 100px;
             margin-bottom: 20px;
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-        }
-
-        input.error {
-            border-color: red;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #ff0000;
-            color: #fff;
+        .register-container button {
+            background-color: #28a745; /* Botão verde */
             border: none;
-            border-radius: 3px;
-            cursor: pointer;
         }
 
-        button:hover {
-            background-color: #ff3131;
-        }
-
-        .error {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
+        .register-container button:hover {
+            background-color: #218838; /* Botão verde mais escuro no hover */
         }
     </style>
 </head>
 <body>
-    <form id="myForm" method="POST">{% csrf_token %}
-        <h1>Cadastrar</h1>
-        <input type="text"  id="username" name="username" placeholder="Nome de usuário">
-        <span id="usernameError" class="error"></span>
-        <input type="email" id="email" name="email" placeholder="Email">
-        <span id="emailError" class="error"></span>
-        <input type="password" id="password" name="password" placeholder="Senha">
-        <span id="passwordError" class="error"></span>
-        <input type="password" id="repeatPassword" name="repeatPassword" placeholder="Repita a senha">
-        <span id="repeatPasswordError" class="error"></span>
-        <button type="submit">Cadastrar</button>
-    </form>
+    <div class="register-container">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
+        <h1>Cadastre-se no AppNutri!</h1>
+        <p>Crie sua conta!</p>
 
+        {% if message %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endif %}
+        <form id="myForm" method="POST">{% csrf_token %}
+            <div class="form-group">
+                <input type="text" id="username" name="username" class="form-control" placeholder="Nome de usuário">
+                <span id="usernameError" class="error text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email">
+                <span id="emailError" class="error text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" class="form-control" placeholder="Senha">
+                <span id="passwordError" class="error text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" id="repeatPassword" name="repeatPassword" class="form-control" placeholder="Repita a senha">
+                <span id="repeatPasswordError" class="error text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+        </form>
+        <div class="mt-3">
+            <a href="/accounts/login" class="text-secondary">Já possui uma conta? Clique aqui</a>
+        </div>  
+    </div>
+    <!-- Inclua o Bootstrap JS (opcional) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         const form = document.getElementById('myForm');
 
@@ -99,42 +103,42 @@
 
             if (username === '') {
                 usernameError.textContent = 'Por favor, insira um nome de usuário.';
-                document.getElementById('username').classList.add('error');
+                document.getElementById('username').classList.add('is-invalid');
                 event.preventDefault();
             } else {
-                document.getElementById('username').classList.remove('error');
+                document.getElementById('username').classList.remove('is-invalid');
             }
 
             if (email === '') {
                 emailError.textContent = 'Por favor, insira um email.';
-                document.getElementById('email').classList.add('error');
+                document.getElementById('email').classList.add('is-invalid');
                 event.preventDefault();
             } else {
-                document.getElementById('email').classList.remove('error');
+                document.getElementById('email').classList.remove('is-invalid');
             }
 
             if (password === '') {
                 passwordError.textContent = 'Por favor, insira uma senha.';
-                document.getElementById('password').classList.add('error');
+                document.getElementById('password').classList.add('is-invalid');
                 event.preventDefault();
             } else {
-                document.getElementById('password').classList.remove('error');
+                document.getElementById('password').classList.remove('is-invalid');
             }
 
             if (repeatPassword === '') {
                 repeatPasswordError.textContent = 'Por favor, repita a senha.';
-                document.getElementById('repeatPassword').classList.add('error');
+                document.getElementById('repeatPassword').classList.add('is-invalid');
                 event.preventDefault();
             } else {
-                document.getElementById('repeatPassword').classList.remove('error');
+                document.getElementById('repeatPassword').classList.remove('is-invalid');
             }
 
             if (password !== repeatPassword) {
                 repeatPasswordError.textContent = 'As senhas não coincidem.';
-                document.getElementById('repeatPassword').classList.add('error');
+                document.getElementById('repeatPassword').classList.add('is-invalid');
                 event.preventDefault();
             } else {
-                document.getElementById('repeatPassword').classList.remove('error');
+                document.getElementById('repeatPassword').classList.remove('is-invalid');
             }
         });
     </script>

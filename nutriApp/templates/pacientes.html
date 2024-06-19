@@ -19,11 +19,12 @@
             <div class="col">
                 <div class="card h-100">
                     <div class="card-body">
-                        <h5 class="card-title">{{ paciente.user.username }}</h5>
+                        <h5 class="card-title">{{ paciente.nome_completo  }}</h5>
                         <p class="card-text">Email: {{ paciente.user.email }}</p>
-                        <p class="card-text">Peso: {{ paciente.peso }}</p>
-                        <p class="card-text">Altura: {{ paciente.altura }}</p>
-                        <a href="{% url 'editar-paciente' paciente.id %}" class="btn btn-primary">Editar</a>
+                        <p class="card-text">Data de nascimento: {{ paciente.data_nascimento }}</p>
+                        <p class="card-text">Gênero: {{ paciente.genero }}</p>
+
+                        <a href="{% url 'editar-paciente' paciente.id %}" class="btn" style="background-color: #28a745; color: white;">Editar</a>
                     </div>
                 </div>
             </div>

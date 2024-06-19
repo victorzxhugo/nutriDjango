@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Paciente
 from django.http import HttpResponseNotAllowed
+from django.core.exceptions import ValidationError
 
 @login_required(redirect_field_name='login')
 
@@ -10,19 +11,36 @@ def home(request):
     # User.objects.create_user(username='caio', email='caio@gmail.com', password='123123')
     return render(request, 'home.html')
 
-
 def cadastrar_paciente(request):
     if request.method == 'POST':
-        nome = request.POST.get('nome')
+        username = request.POST.get('username')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
-        peso = request.POST.get('peso')
-        altura = request.POST.get('altura')
-        nutricionista = request.user
-        novo_paciente = User.objects.create_user(username=nome, email=email, password=senha)
-        paciente = Paciente.objects.create(user=novo_paciente, nutricionista=nutricionista, peso=peso, altura=altura)
-        return redirect('home')  
-    return render(request, 'novo-paciente.html')  
+        nome_completo = request.POST.get('nome_completo')
+        genero = request.POST.get('genero')
+        data_nascimento = request.POST.get('data_nascimento')
+        ocupacao = request.POST.get('ocupacao')
+        cep = request.POST.get('cep')
+        celular = request.POST.get('celular')
+        print(username)
+        try:
+            novo_usuario = User.objects.create_user(username=username, email=email, password=senha)
+            Paciente.objects.create(
+                user=novo_usuario,
+                nutricionista=request.user,
+                nome_completo=nome_completo,
+                genero=genero,
+                data_nascimento=data_nascimento,
+                ocupacao=ocupacao,
+                cep=cep,
+                celular=celular
+            )
+            return redirect('home')
+        except ValidationError as e:
+            print(f"Error: {e}")
+            return render(request, 'novo-paciente.html', {'errors': e})
+
+    return render(request, 'novo-paciente.html')
 
 def pacientes(request):
     nutricionista = request.user
@@ -37,14 +55,17 @@ def editar_paciente(request, paciente_id):
         email = request.POST.get('email')
         peso = request.POST.get('peso')
         altura = request.POST.get('altura')
+        data_nascimento = request.POST.get('data_nascimento')
+        genero = request.POST.get('genero')
 
-        paciente.user.username = nome
-        paciente.user.email = email
+
         paciente.user.save()
         paciente.peso = peso
         paciente.altura = altura
+        paciente.data_nascimento = data_nascimento
+        paciente.genero = genero
         paciente.save()
 
-        return redirect('pacientes')  
+        return redirect('pacientes') 
 
     return render(request, 'editar-paciente.html', {'paciente': paciente})
