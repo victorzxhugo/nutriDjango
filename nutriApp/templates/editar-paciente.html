@@ -1,98 +1,698 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <title>Editar Paciente - {{ paciente.user.username }}</title>
-</head>
-<body>
-  <div class="container">
-    <h2><i class='bx bx-user-edit'></i> Editar Paciente - {{ paciente.nome_completo }}</h2>
-    <nav>
-      <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
-        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-      </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card mb-3">
-              <div class="card-header">
-                <h5>Dados do Paciente</h5>
-              </div>
-              <div class="card-body">
-                <form method="post">
-                  {% csrf_token %}
-                  <input type="hidden" name="paciente_id" value="{{ paciente.id }}">
-                  <div class="mb-3">
-                    <label for="nome_completo" class="form-label">Nome Completo (Obrigatório)</label>
-                    <input type="text" class="form-control" id="nome_completo" name="nome_completo" value="{{ paciente.nome_completo }}" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <title>Editar Paciente - {{ paciente.user.username }}</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <div class="container">
+        <h2>
+          <i class="bx bx-user-edit"></i> Editar Paciente - {{
+          paciente.nome_completo }}
+        </h2>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button
+              class="nav-link active"
+              id="nav-profile-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-profile"
+              type="button"
+              role="tab"
+              aria-controls="nav-profile"
+              aria-selected="true"
+            >
+              Dados
+            </button>
+            <button
+              class="nav-link"
+              id="nav-anamnese-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-anamnese"
+              type="button"
+              role="tab"
+              aria-controls="nav-anamnese"
+              aria-selected="false"
+            >
+              Anamnese
+            </button>
+            <button
+              class="nav-link"
+              id="nav-avalicao-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-avalicao"
+              type="button"
+              role="tab"
+              aria-controls="nav-avalicao"
+              aria-selected="false"
+            >
+              Avaliação
+            </button>
+            <button
+              class="nav-link"
+              id="nav-exames-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-exames"
+              type="button"
+              role="tab"
+              aria-controls="nav-exames"
+              aria-selected="false"
+            >
+              Exames
+            </button>
+            <button
+              class="nav-link"
+              id="nav-composicao-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-composicao"
+              type="button"
+              role="tab"
+              aria-controls="nav-composicao"
+              aria-selected="false"
+            >
+              Composição
+            </button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="nav-profile"
+            role="tabpanel"
+            aria-labelledby="nav-profile-tab"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Dados do Paciente</h5>
                   </div>
-                  <div class="mb-3">
-                    <label for="genero" class="form-label">Gênero</label>
-                    <select class="form-select" id="genero" name="genero">
-                      <option value="Masculino" {% if paciente.genero == "Masculino" %}selected{% endif %}>Masculino</option>
-                      <option value="Feminino" {% if paciente.genero == "Feminino" %}selected{% endif %}>Feminino</option>
-                      <option value="Outro" {% if paciente.genero == "Outro" %}selected{% endif %}>Outro</option>
-                    </select>
+                  <div class="card-body">
+                    <input
+                      type="hidden"
+                      name="paciente_id"
+                      value="{{ paciente.id }}"
+                    />
+                    <div class="mb-3">
+                      <label for="nome_completo" class="form-label"
+                        >Nome Completo (Obrigatório)</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nome_completo"
+                        name="nome_completo"
+                        value="{{ paciente.nome_completo }}"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="genero" class="form-label">Gênero</label>
+                      <select class="form-select" id="genero" name="genero">
+                        <option
+                          value="Masculino"
+                          {%
+                          if
+                          paciente.genero="Masculino"
+                          %}selected{%
+                          endif
+                          %}
+                        >
+                          Masculino
+                        </option>
+                        <option
+                          value="Feminino"
+                          {%
+                          if
+                          paciente.genero="Feminino"
+                          %}selected{%
+                          endif
+                          %}
+                        >
+                          Feminino
+                        </option>
+                        <option
+                          value="Outro"
+                          {%
+                          if
+                          paciente.genero="Outro"
+                          %}selected{%
+                          endif
+                          %}
+                        >
+                          Outro
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="data_nascimento" class="form-label"
+                        >Data de Nascimento (Obrigatório)</label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        id="data_nascimento"
+                        name="data_nascimento"
+                        value="{{ paciente.data_nascimento }}"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="ocupacao" class="form-label">Ocupação</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ocupacao"
+                        name="ocupacao"
+                        value="{{ paciente.ocupacao }}"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="cep" class="form-label">CEP</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cep"
+                        name="cep"
+                        value="{{ paciente.cep }}"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="celular" class="form-label"
+                        >Número de Celular</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="celular"
+                        name="celular"
+                        value="{{ paciente.celular }}"
+                      />
+                    </div>
                   </div>
-                  <div class="mb-3">
-                    <label for="data_nascimento" class="form-label">Data de Nascimento (Obrigatório)</label>
-                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ paciente.data_nascimento }}" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="ocupacao" class="form-label">Ocupação</label>
-                    <input type="text" class="form-control" id="ocupacao" name="ocupacao" value="{{ paciente.ocupacao }}">
-                  </div>
-                  <div class="mb-3">
-                    <label for="cep" class="form-label">CEP</label>
-                    <input type="text" class="form-control" id="cep" name="cep" value="{{ paciente.cep }}">
-                  </div>
-                  <div class="mb-3">
-                    <label for="celular" class="form-label">Número de Celular</label>
-                    <input type="text" class="form-control" id="celular" name="celular" value="{{ paciente.celular }}">
-                  </div>
-                  <button type="submit" class="btn" style="background-color: #28a745; color: white;"><i class='bx bx-check'></i> Salvar</button>
-                </form>
+                </div>
               </div>
             </div>
           </div>
+          <div
+            class="tab-pane fade"
+            id="nav-anamnese"
+            role="tabpanel"
+            aria-labelledby="nav-anamnese-tab"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Anamnese</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="mb-3">
+                      <label for="question-one" class="form-label"
+                        >Objetivo da consulta</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="question-one"
+                        name="question-one"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="question-two" class="form-label"
+                        >Histórico alimentar</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="question-two"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="question-three" class="form-label"
+                        >Alergias</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="question-three"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="question-four" class="form-label"
+                        >Rotina de alimentação</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="question-four"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="question-five" class="form-label"
+                        >Rotina de atividade física</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="question-five"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="question-six" class="form-label"
+                        >Preferências e restrições</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="question-six"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="nav-avalicao"
+            role="tabpanel"
+            aria-labelledby="nav-avalicao-tab"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Dados Antopométricos</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">Peso</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="weigth"
+                            value="0"
+                          />
+                          <div class="input-group-text">kg</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">Altura</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="heigth"
+                            value="0"
+                          />
+                          <div class="input-group-text">cm</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea iliocristal
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraIliocristal"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea supraespinal
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraSupraespinal"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea abdominal
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraAbdominal"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea axilar média
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraAxilar"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea da coxa
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraCoxa"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea peitoral
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraPeitoral"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea subescapular
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraSubescapular"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea suprailíaca
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraSuprailíaca"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Dobra cutânea tricipital
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="dobraTricipital"
+                            value="0"
+                          />
+                          <div class="input-group-text">mm</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Perímetro da cintura
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="waist"
+                            value="0"
+                          />
+                          <div class="input-group-text">cm</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Perímetro do quadril
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="hip"
+                            value="0"
+                          />
+                          <div class="input-group-text">cm</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="nav-exames"
+            role="tabpanel"
+            aria-labelledby="nav-exames-tab"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Dados Laboratoriais</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">Colesterol HDL</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="colesHDL"
+                            />
+                          <div class="input-group-text">mg/dL</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">Colesterol LDL</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="colesLDL"
+                            />
+                          <div class="input-group-text">mg/dL</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Colesterol Total
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="colesTotal"
+                            />
+                          <div class="input-group-text">mg/dL</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Pressão Arterial diastólica
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="pressDiastolica"
+                            />
+                          <div class="input-group-text">mmHg</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Pressão Arterial Sistólica
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="pressSistolica"
+                            />
+                          <div class="input-group-text">mmHg</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-50">
+                            Triglecerídios
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="trig"
+                          />
+                          <div class="input-group-text">mg/dL</div>
+                        </div>
+                      </div>
+
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="tab-pane fade"
+            id="nav-composicao"
+            role="tabpanel"
+            aria-labelledby="nav-composicao-tab"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card mb-3">
+                  <div class="card-header">
+                    <h5>Composição Corporal</h5>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-75">Massa Gorda</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="fat"
+                            readonly
+                          />
+                          <div class="input-group-text">kg</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-75">Massa Muscular</div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="muscle"
+                            readonly
+                            />
+                          <div class="input-group-text">kg</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-75">
+                            Porcentagem de massa gorda
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="percFat"
+                            value="0"
+                              />
+                          <div class="input-group-text">%</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="input-group">
+                          <div class="input-group-text w-75">
+                            Porcentagem de massa muscular
+                          </div>
+                          <input
+                            type="number"
+                            class="form-control"
+                            id="percMuscle"
+                            value="0"
+                            />
+                          <div class="input-group-text">%</div>
+                        </div>
+                      </div>
+
+                     
+
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn"
+            style="background-color: #28a745; color: white"
+          >
+            <i class="bx bx-check"></i> Salvar
+          </button>
         </div>
-
-
-
       </div>
-      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">2222222</div>
-      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">3333333</div>
-    </div>
-
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
-</body>
-<style>
-  /* Custom CSS to change the color of nav-links */
-  .nav-link {
-    color: rgb(0, 0, 0); /* Texto branco */
-    background-color: #007bff; /* Fundo azul */
-  }
-  .nav-link.active {
-    background-color: #0056b3; /* Fundo azul mais escuro para a aba ativa */
-  }
-  .nav-link:hover {
-    background-color: #28a745;
-    color: #fff; /* Texto branco */
-
-  }
-</style>
-
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    </form>
+    </body>
+  <style>
+    /* Custom CSS to change the color of nav-links */
+    .nav-link {
+      color: rgb(0, 0, 0); /* Texto branco */
+      background-color: #007bff; /* Fundo azul */
+    }
+    .nav-link.active {
+      background-color: #0056b3; /* Fundo azul mais escuro para a aba ativa */
+    }
+    .nav-link:hover {
+      background-color: #28a745;
+      color: #fff; /* Texto branco */
+    }
+  </style>
 </html>
 
 {% endblock %}
