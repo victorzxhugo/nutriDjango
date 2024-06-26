@@ -15,7 +15,6 @@
 
     
     <title>Nutri App</title> 
-   
 </head>
 <body style="background-color: #E4E9F7; padding: 40px;">
     <nav class="sidebar close">
@@ -43,7 +42,7 @@
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>
-                    {% if request.user.is_superuser %}
+                    {% if request.user.is_staff %}
                     <li class="nav-link-side">
                         <a href="/novo-paciente">
                             <i class='bx bx-user-plus icon'></i>
@@ -58,13 +57,16 @@
                         </a>
                     </li>
                     {% endif %}
-
+                    
+                    {% if not request.user.is_staff %}
                     <li class="nav-link-side">
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt icon' ></i>
-                            <span class="text nav-text">Analytics</span>
+                        <a href="{% url 'minhas-medidas' request.user.paciente.id %}">
+                            <i class='bx bx-pie-chart-alt icon'></i>
+                            <span class="text nav-text">Minhas Medidas</span>
                         </a>
                     </li>
+                    {% endif %}
+
 
                     <!-- <li class="nav-link-side">
                         <a href="#">

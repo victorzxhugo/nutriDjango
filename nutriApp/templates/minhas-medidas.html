@@ -9,14 +9,13 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <title>Editar Paciente - {{ paciente.user.username }}</title>
   </head>
   <body>
     <form method="post">
-      {% csrf_token %}
+      {% csrf_token %} 
       <div class="container">
         <h2>
-          <i class="bx bx-user-edit"></i> Editar Paciente - {{ paciente.nome_completo }}
+          <i class="bx bx-user-edit"></i> Minhas Medidas - {{ paciente.nome_completo }}
         </h2>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -112,15 +111,20 @@
                         name="nome_completo"
                         value="{{ paciente.nome_completo }}"
                         required
+                        readonly
                       />
                     </div>
                     <div class="mb-3">
                       <label for="genero" class="form-label">Gênero</label>
-                      <select class="form-select" id="genero" name="genero">
-                        <option value="Masculino" {% if paciente.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
-                        <option value="Feminino" {% if paciente.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
-                        <option value="Outro" {% if paciente.genero == 'Outro' %}selected{% endif %}>Outro</option>
-                      </select>
+                      <input
+                      type="text"
+                      class="form-control"
+                      id="genero"
+                      name="genero"
+                      value="{{ paciente.genero }}"
+                      required
+                      readonly
+                    />
                     </div>
                     <div class="mb-3">
                       <label for="data_nascimento" class="form-label"
@@ -133,6 +137,7 @@
                         name="data_nascimento"
                         value="{{ paciente.data_nascimento|date:'Y-m-d' }}"
                         required
+                        readonly
                       />
                     </div>
                     <div class="mb-3">
@@ -143,6 +148,7 @@
                         id="ocupacao"
                         name="ocupacao"
                         value="{{ paciente.ocupacao }}"
+                        readonly
                       />
                     </div>
                     <div class="mb-3">
@@ -153,6 +159,7 @@
                         id="cep"
                         name="cep"
                         value="{{ paciente.cep }}"
+                        readonly
                       />
                     </div>
                     <div class="mb-3">
@@ -165,6 +172,7 @@
                         id="celular"
                         name="celular"
                         value="{{ paciente.celular }}"
+                        readonly
                       />
                     </div>
                   </div>
@@ -195,6 +203,7 @@
                         id="question-one"
                         name="question-one"
                         value="{{ paciente.objetivo_consulta }}"
+                        readonly
                       />
                     </div>
                     <div class="mb-3">
@@ -206,6 +215,7 @@
                         id="question-two"
                         name="question-two"
                         rows="3"
+                        readonly
                       >{{ paciente.historico_alimentar }}</textarea>
                     </div>
                     <div class="mb-3">
@@ -217,6 +227,7 @@
                         id="question-three"
                         name="question-three"
                         rows="3"
+                        readonly
                       >{{ paciente.alergias }}</textarea>
                     </div>
                     <div class="mb-3">
@@ -228,6 +239,7 @@
                         id="question-four"
                         name="question-four"
                         rows="3"
+                        readonly
                       >{{ paciente.rotina_de_alimentacao }}</textarea>
                     </div>
                     <div class="mb-3">
@@ -239,6 +251,7 @@
                         id="question-five"
                         name="question-five"
                         rows="3"
+                        readonly
                       >{{ paciente.rotina_de_atividade_fisica }}</textarea>
                     </div>
                     <div class="mb-3">
@@ -250,6 +263,7 @@
                         id="question-six"
                         name="question-six"
                         rows="3"
+                        readonly
                       >{{ paciente.preferencias_e_restricoes }}</textarea>
                     </div>
                   </div>
@@ -281,6 +295,7 @@
                             id="weigth"
                             name="weigth"
                             value="{{ paciente.peso }}"
+                            readonly
                           />
                           <div class="input-group-text">kg</div>
                         </div>
@@ -294,6 +309,7 @@
                             id="heigth"
                             name="heigth"
                             value="{{ paciente.altura }}"
+                            readonly
                           />
                           <div class="input-group-text">cm</div>
                         </div>
@@ -309,6 +325,7 @@
                             id="dobraIliocristal"
                             name="dobraIliocristal"
                             value="{{ paciente.dobra_cutanea_iliocristal }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -325,6 +342,7 @@
                             id="dobraSupraespinal"
                             name="dobraSupraespinal"
                             value="{{ paciente.dobra_cutanea_supraespinhal }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -341,6 +359,7 @@
                             id="dobraAbdominal"
                             name="dobraAbdominal"
                             value="{{ paciente.dobra_cutanea_abdominal }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -357,6 +376,7 @@
                             id="dobraAxilar"
                             name="dobraAxilar"
                             value="{{ paciente.dobra_cutanea_axilar_media }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -373,6 +393,7 @@
                             id="dobraCoxa"
                             name="dobraCoxa"
                             value="{{ paciente.dobra_cutanea_coxa }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -389,6 +410,7 @@
                             id="dobraPeitoral"
                             name="dobraPeitoral"
                             value="{{ paciente.dobra_cutanea_peitoral }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -405,6 +427,7 @@
                             id="dobraSubescapular"
                             name="dobraSubescapular"
                             value="{{ paciente.dobra_cutanea_subescapular }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -421,6 +444,7 @@
                             id="dobraSuprailíaca"
                             name="dobraSuprailíaca"
                             value="{{ paciente.dobra_cutanea_suprailiaca }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -437,6 +461,7 @@
                             id="dobraTricipital"
                             name="dobraTricipital"
                             value="{{ paciente.dobra_cutanea_tricipital }}"
+                            readonly
                           />
                           <div class="input-group-text">mm</div>
                         </div>
@@ -452,6 +477,7 @@
                             id="waist"
                             name="waist"
                             value="{{ paciente.perimetro_cintura }}"
+                            readonly
                           />
                           <div class="input-group-text">cm</div>
                         </div>
@@ -467,6 +493,7 @@
                             id="hip"
                             name="hip"
                             value="{{ paciente.perimetro_quadril }}"
+                            readonly
                           />
                           <div class="input-group-text">cm</div>
                         </div>
@@ -501,6 +528,7 @@
                             id="colesHDL"
                             name="colesHDL"
                             value="{{ paciente.colesterol_hdl }}"
+                            readonly
 
                             />
                           <div class="input-group-text">mg/dL</div>
@@ -515,6 +543,7 @@
                             id="colesLDL"
                             name="colesLDL"
                             value="{{ paciente.colesterol_ldl }}"
+                            readonly
 
                             />
                           <div class="input-group-text">mg/dL</div>
@@ -531,6 +560,7 @@
                             id="colesTotal"
                             name="colesTotal"
                             value="{{ paciente.colesterol_total }}"
+                            readonly
 
                             />
                           <div class="input-group-text">mg/dL</div>
@@ -548,6 +578,7 @@
                             id="pressDiastolica"
                             name="pressDiastolica"
                             value="{{ paciente.pressao_arterial_diastolica }}"
+                            readonly
 
                             />
                           <div class="input-group-text">mmHg</div>
@@ -565,7 +596,7 @@
                             id="pressSistolica"
                             name="pressSistolica"
                             value="{{ paciente.pressao_arterial_sistolica }}"
-
+                            readonly
                             />
                           <div class="input-group-text">mmHg</div>
                         </div>
@@ -582,7 +613,7 @@
                             id="trig"
                             name="trig"
                             value="{{ paciente.triglicerideos }}"
-
+                            readonly
                           />
                           <div class="input-group-text">mg/dL</div>
                         </div>
@@ -618,6 +649,8 @@
                             class="form-control"
                             id="fat"
                             name="massa_gorda"
+                            value="{{paciente.massa_gorda}}"
+                            readonly
                           />
                           <div class="input-group-text">kg</div>
                         </div>
@@ -630,6 +663,8 @@
                             class="form-control"
                             id="muscle"
                             name="massa_muscular"
+                            value="{{paciente.massa_muscular}}"
+                            readonly
                             />
                           <div class="input-group-text">kg</div>
                         </div>
@@ -644,6 +679,7 @@
                             class="form-control"
                             id="percFat"
                             name="percFat"
+                            value="{{paciente.porcentagem_massa_gorda}}"
                             readonly
                             />
                           <div class="input-group-text">%</div>
@@ -660,6 +696,7 @@
                             class="form-control"
                             id="percMuscle"
                             name="percMuscle"
+                            value="{{paciente.porcentagem_massa_muscular}}"
                             readonly                            
                             />
                           <div class="input-group-text">%</div>
@@ -673,6 +710,7 @@
                             class="form-control"
                             id="imc"
                             name="imc"
+                            value="{{paciente.imc}}"
                             readonly
                           />
                         </div>
@@ -683,54 +721,8 @@
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            class="btn"
-            style="background-color: #28a745; color: white"
-          >
-            <i class="bx bx-check"></i> Salvar
-          </button>
         </div>
       </div>
-      <script>
-        function calcularComposicao() {
-          let massaGorda = parseFloat(document.getElementById('fat').value) || 0;
-          let massaMuscular = parseFloat(document.getElementById('muscle').value) || 0;
-          let peso = parseFloat(document.getElementById('weigth').value) || 0;
-      
-          if (massaGorda + massaMuscular > peso) {
-            let excedente = massaGorda + massaMuscular - peso;
-            massaGorda -= massaGorda * (excedente / (massaGorda + massaMuscular));
-            massaMuscular -= massaMuscular * (excedente / (massaGorda + massaMuscular));
-          }
-      
-          if (massaGorda < 0) massaGorda = 0;
-          if (massaMuscular < 0) massaMuscular = 0;
-      
-          document.getElementById('fat').value = massaGorda.toFixed(2);
-          document.getElementById('muscle').value = massaMuscular.toFixed(2);
-      
-          let total = massaGorda + massaMuscular;
-          let percGorda = total === 0 ? 0 : (massaGorda / total) * 100;
-          document.getElementById('percFat').value = percGorda.toFixed(2);
-      
-          let percMuscular = total === 0 ? 0 : (massaMuscular / total) * 100;
-          document.getElementById('percMuscle').value = percMuscular.toFixed(2);
-      
-          let altura = parseFloat(document.getElementById('heigth').value) || 0;
-          let imc = peso / ((altura / 100) ** 2);
-          document.getElementById('imc').value = imc.toFixed(2);
-        }
-      
-        document.getElementById('fat').addEventListener('input', calcularComposicao);
-        document.getElementById('muscle').addEventListener('input', calcularComposicao);
-      
-        document.getElementById('weigth').addEventListener('input', calcularComposicao);
-        document.getElementById('heigth').addEventListener('input', calcularComposicao);
-      
-        calcularComposicao();
-      </script>
-      
       
       
     

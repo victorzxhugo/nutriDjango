@@ -83,9 +83,9 @@
             <div class="col-md-3">
               <label for="genero" class="form-label">Gênero</label>
               <select class="form-select" id="genero" name="genero">
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-                <option value="Outro">Outro</option>
+                <option value="Masculino" {% if paciente.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                <option value="Feminino" {% if paciente.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
+                <option value="Outro" {% if paciente.genero == 'Outro' %}selected{% endif %}>Outro</option>
               </select>
             </div>
             <div class="col-md-3">

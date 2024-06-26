@@ -22,6 +22,7 @@
     
     <div class="container mt-5">
         <div class="row">
+            {% if request.user.is_staff %}
             <div class="col-md-6 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
@@ -40,6 +41,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="col-md-6 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
@@ -49,15 +51,17 @@
                     </div>
                 </div>
             </div>
+            {% if not request.user.is_staff %}
             <div class="col-md-6 mb-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">Medições</h5>
-                        <p class="card-text">Em breve.</p>
-                        <button class="btn btn-secondary" disabled>Indisponível</button>
+                        <h5 class="card-title">Minhas medidas</h5>
+                        <p class="card-text">Veja todas suas medidas.</p>
+                        <a href="{% url 'minhas-medidas' request.user.paciente.id %}" class="btn" style="background-color: #28a745; color: white;">Visualizar</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </body>

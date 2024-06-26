@@ -23,13 +23,14 @@ def register(request):
         usuario = request.POST['username']
         email = request.POST['email']
         senha = request.POST['password']
-        repita_sua_senha = request.POST['repeatPassword']
 
         try:
             User.objects.create_user(
                 username=usuario,
                 email=email,
-                password=senha)
+                password=senha,
+                is_staff=True
+                )
             message = 'Conta criada com sucesso!'
         except Exception as e:
             message = 'Erro ao criar a conta: ' + str(e)
